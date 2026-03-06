@@ -31,7 +31,7 @@ python Gobang_AlphaZero_V2.py
 ```
 Follow the prompt in the terminal to select the desired mode (1-4).
 
-> **Note:** The pre-trained PyTorch model `Gobang_AlphaZero_V2_model.pth` will be automatically generated and updated during training. If you already have a model, placing it in the same directory will allow the script to load it automatically.
+> **Note:** The pre-trained PyTorch model `Gobang_AlphaZero_V2_model.pth` will be automatically generated and updated during training. If you already have a model, placing it in the same directory will allow the script to load it automatically.** Currently, the model has been trained for around 1000 iterations, and we will continue to increase the training iterations to further improve the model's performance and release new models in the future.
 
 ---
 
@@ -65,4 +65,4 @@ python Gobang_AlphaZero_V2.py
 ```
 根据终端交互提示输入数字，选择对应的模式进行游玩或开始训练。
 
-> **提示**：训练过程会自动保存模型权重至当前目录下的 `Gobang_AlphaZero_V2_model.pth`。如果你将已有的训练模型放置在同级目录下，程序在运行时会自动识别并加载以供继续训练或人机实战。
+> **提示**：训练过程会自动保存模型权重至当前目录下的 `Gobang_AlphaZero_V2_model.pth`。如果你将已有的训练模型放置在同级目录下，程序在运行时会自动识别并加载以供继续训练或人机实战。**当前训练轮数较少，仅1000轮左右，后续会继续增加训练轮数以提升模型性能，并发布新的模型**
