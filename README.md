@@ -31,7 +31,7 @@ python Gobang_AlphaZero_V2.py
 ```
 Follow the prompt in the terminal to select the desired mode (1-4).
 
-> **Note:** The pre-trained PyTorch model `Gobang_AlphaZero_V2_model.pth` will be automatically generated and updated during training. If you already have a model, placing it in the same directory will allow the script to load it automatically.** Currently, the model has been trained for around 1000 iterations, and we will continue to increase the training iterations to further improve the model's performance and release new models in the future.
+> **Note:** The pre-trained PyTorch model `Gobang_AlphaZero_V2_model.pth` will be automatically generated and updated during training. If you already have a model, placing it in the same directory will allow the script to load it automatically.** Currently, the model has been trained for around 1000 iterations, and we will continue to increase the training iterations to further improve the model's performance and release new models in the future.**
 
 ---
 
