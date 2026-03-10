@@ -350,7 +350,7 @@ class AlphaZeroAgent:
     def save_model(self):
         torch.save(self.net.state_dict(), FILEPATH_MODEL)
 
-def self_play_episode(agent, n_playout=400, render=False, renderer=None, screen=None, clock=None, font=None, ep=0, episodes=0):
+def self_play_episode(agent, n_playout=600, render=False, renderer=None, screen=None, clock=None, font=None, ep=0, episodes=0):
     board = Board()
     mcts = MCTS(agent.policy_value_fn, c_puct=5, n_playout=n_playout)
     
@@ -449,10 +449,12 @@ def train_alphazero(episodes=2000, batch_size=1024, render=False): # 增大 Batc
     
     for ep in range(episodes):
         print(f"Episode {ep+1}/{episodes} - Self Playing...")
+        n_playout = 500
         if render:
             pygame.event.pump()
+            n_playout = 400
         states, mcts_probs, winners_z = self_play_episode(
-            agent, n_playout=400, # 可视化模式为了流畅度，降回 400 次模拟
+            agent, n_playout=n_playout, 
             render=render, renderer=renderer, screen=screen, clock=clock, font=font,
             ep=ep+1, episodes=episodes
         )
@@ -782,5 +784,3 @@ if __name__ == "__main__":
     else:
         print("无效输入，程序退出。")
 
-
-# 当前1020轮
