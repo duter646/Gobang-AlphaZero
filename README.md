@@ -43,7 +43,7 @@ For users who just want to play without installing heavy dependencies like PyTor
    Then run `python Gobang_AlphaZero_V2_ONNX_Play.py`. Make sure `Gobang_AlphaZero_V2.onnx` and `Gobang_AlphaZero_V2.onnx.data` are in the same folder.
 2. **EXE Version**: Download the compressed package from the **Releases** page. Extract it and run `Gobang_AlphaZero_V2_ONNX_Play.exe`. This version is standalone and does not require Python.
 
-> **Note:** The pre-trained PyTorch model `Gobang_AlphaZero_V2_model.pth` will be automatically generated and updated during training. If you already have a model, placing it in the same directory will allow the script to load it automatically. **The current provided model is trained for ~4000 episodes; newer versions will be released later.**
+> **Note:** The pre-trained PyTorch model `Gobang_AlphaZero_V2_model.pth` will be automatically generated and updated during training. If you already have a model, placing it in the same directory will allow the script to load it automatically. **The current provided model is trained for ~10000 episodes; newer versions will be released later.**
 
 ---
 
@@ -88,4 +88,4 @@ python Gobang_AlphaZero_V2.py
    直接运行 `python Gobang_AlphaZero_V2_ONNX_Play.py`。请确保 `Gobang_AlphaZero_V2.onnx` 和 `Gobang_AlphaZero_V2.onnx.data` 文件位于同级目录下。
 2. **EXE 运行**：在 GitHub 的 **Releases** 页面下载打包好的压缩包。解压后直接双击 `Gobang_AlphaZero_V2_ONNX_Play.exe` 即可运行，无需安装 Python 环境。
 
-> **提示**：训练过程会自动保存模型权重至当前目录下的 `Gobang_AlphaZero_V2_model.pth`。如果你将已有的训练模型放置在同级目录下，程序在运行时会自动识别并加载以供继续训练或人机实战。**当前版本为训练约4000轮的模型，后续会发布新版本**
+> **提示**：训练过程会自动保存模型权重至当前目录下的 `Gobang_AlphaZero_V2_model.pth`。如果你将已有的训练模型放置在同级目录下，程序在运行时会自动识别并加载以供继续训练或人机实战。**当前版本为训练约10000轮的模型，后续会发布新版本**

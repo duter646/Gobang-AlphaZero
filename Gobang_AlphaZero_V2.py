@@ -302,7 +302,7 @@ class AlphaZeroAgent:
         print(f"AlphaZero V2 Using device: {self.device}")
         
         self.net = PolicyValueNet().to(self.device)
-        self.optimizer = optim.Adam(self.net.parameters(), lr=0.001, weight_decay=1e-4) # 稍微降低 L2 正则，鼓励拟合大网络
+        self.optimizer = optim.Adam(self.net.parameters(), lr=0.0005, weight_decay=1e-4) # 稍微降低 L2 正则，鼓励拟合大网络
         
         if os.path.exists(FILEPATH_MODEL):
             self.net.load_state_dict(torch.load(FILEPATH_MODEL, map_location=self.device))
@@ -369,16 +369,18 @@ def self_play_episode(agent, n_playout=600, render=False, renderer=None, screen=
         temp = 1.0
 
         # 强制 AI 执黑第一步下天元
-        if step == 0:
+        if step == 0 and random.random() < 0.5: # 50% 的概率第一步下天元，50% 保持随机性增加多样性
             move = (BOARD_SIZE // 2, BOARD_SIZE // 2)
             acts = board.get_legal_moves()
             probs = np.zeros(len(acts))
             probs[acts.index(move)] = 1.0
         else:
-            if step < 15:
+            if step < 3:
                 temp = 1.0
-            elif step < 30:
-                temp = 0.5
+            if step < 8:
+                temp = 0.7
+            elif step < 15:
+                temp = 0.4
             else:
                 temp = 1e-3
 
@@ -448,7 +450,7 @@ def train_alphazero(episodes=2000, batch_size=1024, render=False): # 增大 Batc
         renderer = GoGameRenderer()
     
     for ep in range(episodes):
-        print(f"Episode {ep+1}/{episodes} - Self Playing...")
+        print(f"\n\nEpisode {ep+1}/{episodes} - Self Playing...")
         n_playout = 500
         if render:
             pygame.event.pump()
@@ -470,17 +472,17 @@ def train_alphazero(episodes=2000, batch_size=1024, render=False): # 增大 Batc
                 p_flip = np.fliplr(p_rot.reshape(BOARD_SIZE, BOARD_SIZE)).flatten()
                 data_buffer.append((s_flip, p_flip, w))
                 
-        print(f"Episode {ep+1} finished. Buffer size: {len(data_buffer)}. Winner: {'黑' if winners_z[0] == 1 else '白' if winners_z[0] == -1 else '平局'}")
+        print(f"Episode {ep+1} finished. Buffer size: {len(data_buffer)}. Winner: {'黑' if winners_z[0] == 1 else '白' if winners_z[0] == -1 else '平局'}", end=". ")
         
         if len(data_buffer) > batch_size:
             mini_batch = random.sample(data_buffer, batch_size)
             state_batch, mcts_probs_batch, winner_batch = zip(*mini_batch)
             loss, p_loss, v_loss = agent.train_step(state_batch, mcts_probs_batch, winner_batch)
-            print(f"Loss: {loss:.4f} (Policy: {p_loss:.4f}, Value: {v_loss:.4f})\n")
+            print(f"Loss: {loss:.4f} (Policy: {p_loss:.4f}, Value: {v_loss:.4f})", end=". ")
             
         if (ep + 1) % 10 == 0:
             agent.save_model()
-            print("Model saved.\n")
+            print("\nModel saved.\n")
 
 # ==========================================
 # 5. Pygame 渲染与人机对战
@@ -674,7 +676,7 @@ def pve():
                 
                 eval_temp = 1e-3 if current_step >= 4 else 0.5
                 
-                mcts.n_playout = 500
+                mcts.n_playout = 600
                 acts, probs = mcts.get_move_probs(board, temp=eval_temp)
                 
                 pygame.display.set_caption("五子棋 - AlphaZero V2 人机对战")
